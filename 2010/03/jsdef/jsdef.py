@@ -48,8 +48,9 @@ __version__ = "0.2"
 
 """change notes:
 
-0.1: first release
-0.2: python to javascript conversion for "and", "or" and "not" keywords
+0.3: convert True and False (2010-03-08)
+0.2: python to javascript conversion for "and", "or" and "not" keywords (2010-03-08)
+0.1: first release (2010-03-05)
 """
 
 import simplejson
@@ -212,7 +213,13 @@ def py2js(expr):
         >>> py2js("x or not y")
         'x || ! y'
     """
-    d = {"and": "&&", "or": "||", "not": "!"}
+    d = {
+        "and": "&&",
+        "or": "||",
+        "not": "!",
+        "True": "true",
+        "False": "false"
+    }
     def f(tokens):
        for t in tokens:
            yield d.get(t, t) 
@@ -241,6 +248,8 @@ def _test():
         u'if (a || ! b) {\n    self.push(websafe(a));\n}\n'
         >>> t("$for i in a and a.data or []: $i")
         u'foreach(a && a.data || [], loop, function(loop, i) {\n    self.push(websafe(i));\n});\n'
+        >>> t("$(True or False)")
+        'self.push(websafe((true || false)));\n'
     """
     
 if __name__ == "__main__":

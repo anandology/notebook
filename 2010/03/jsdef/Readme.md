@@ -51,4 +51,4 @@ If you are using a python function inside the jsdef block, you need to provide t
 
 ## Download
 
-<http://github.com/downloads/anandology/notebook/jsdef-0.2.zip>
+<http://github.com/downloads/anandology/notebook/jsdef-0.3.zip>
