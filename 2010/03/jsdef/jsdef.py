@@ -38,6 +38,9 @@ Sample Template:
             document.getElementById("books").innerHTML = render_books(books);
         }
     </script>
+
+For more details, see:
+http://github.com/anandology/notebook/tree/master/2010/03/jsdef/
 """
 
 __author__ = "Anand Chitipothu <anandology@gmail.com>"
@@ -178,9 +181,6 @@ class JSNode:
         text += "</script>\n"
         return text
         
-render = web.template.render("templates/", extensions=[extension])
-print render.sample()
-
 if __name__ == "__main__":
     import doctest
     doctest.testmod()

@@ -1,4 +1,11 @@
 /**
+ * JavaScript companion for jsdef templetor extension.
+ *
+ * For more details, see:
+ * http://github.com/anandology/notebook/tree/master/2010/03/jsdef/
+ */
+
+/**
  * Python range function.
  *
  *      > range(2,5)
