@@ -164,7 +164,7 @@ class JSNode:
         b = web.re_compile("loop.setup\((.*)\)").match(b).group(1)
 
         text = ""
-        text += indent + "foreach(%s, loop, function(loop, %s) {\n" % (b, a)
+        text += indent + "foreach(%s, loop, function(loop, %s) {\n" % (py2js(b), a)
         text += self.jsemit(node.suite, indent + INDENT)
         text += indent + "});\n"
         return text
@@ -239,6 +239,8 @@ def _test():
         'var x = a && b;\n'
         >>> t("$if a or not b: $a")
         u'if (a || ! b) {\n    self.push(websafe(a));\n}\n'
+        >>> t("$for i in a and a.data or []: $i")
+        u'foreach(a && a.data || [], loop, function(loop, i) {\n    self.push(websafe(i));\n});\n'
     """
     
 if __name__ == "__main__":
