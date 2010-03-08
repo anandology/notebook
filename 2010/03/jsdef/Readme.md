@@ -48,3 +48,7 @@ This is just an attempt to drive JavaScript templating from Python. Features lik
 
 If you are using a python function inside the jsdef block, you need to provide the equivalent in JavaScript too. Some builtin functions are already provided by [jsdef.js](jsdef.js).
 
+
+## Download
+
+<http://github.com/downloads/anandology/notebook/jsdef-0.2.zip>
