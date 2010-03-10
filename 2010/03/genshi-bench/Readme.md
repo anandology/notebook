@@ -2,3 +2,6 @@
 
 Source: http://svn.edgewall.org/repos/genshi/trunk/examples/bench
 
+## Changes
+
+* Added web.py templates

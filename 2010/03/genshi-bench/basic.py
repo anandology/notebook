@@ -162,6 +162,28 @@ def simpletal(dirname, verbose=False):
         print render()
     return render
 
+def webpy(dirname, verbose=False):
+    import web
+    web.config.debug = False
+    render = web.template.render(dirname)
+    web.template.Template.globals['render'] = render
+    t = render.template
+    render.header
+    render.footer
+    
+    def f():
+        a = t(
+            title='Just a test',
+            user='joe',
+            items=['Number %d' % num for num in range(1, 15)]
+        )
+        unicode(a)
+    
+    if verbose:
+        print f()
+        
+    return f
+
 def run(engines, number=2000, verbose=False):
     basepath = os.path.abspath(os.path.dirname(__file__))
     for engine in engines:

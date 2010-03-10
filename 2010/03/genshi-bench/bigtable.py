@@ -45,6 +45,11 @@ try:
 except ImportError:
     MakoTemplate = None
 
+try:
+    from web.template import Template as WebPyTemplate
+except ImportError:
+    WebPyTemplate = None
+
 table = [dict(a=1,b=2,c=3,d=4,e=5,f=6,g=7,h=8,i=9,j=10)
           for x in range(1000)]
 
@@ -97,6 +102,19 @@ if MakoTemplate:
     def test_mako():
         """Mako Template"""
         mako_tmpl.render(table=table)
+
+if WebPyTemplate:
+    webpy_tmpl = WebPyTemplate("""$def with (table)
+<table>
+    $for row in table:
+        $for col in row.values():
+            <td>$col</td>
+</table>
+""")
+    def test_webpy():
+        """web.py template"""
+        d = webpy_tmpl(table)
+        unicode(d)
 
 def test_genshi():
     """Genshi template"""
@@ -198,7 +216,7 @@ if neo_cgi:
 def run(which=None, number=10):
     tests = ['test_builder', 'test_genshi', 'test_genshi_text',
              'test_genshi_builder', 'test_mako', 'test_kid', 'test_kid_et',
-             'test_et', 'test_cet', 'test_clearsilver', 'test_django']
+             'test_et', 'test_cet', 'test_clearsilver', 'test_django', 'test_webpy']
 
     if which:
         tests = filter(lambda n: n[5:] in which, tests)
