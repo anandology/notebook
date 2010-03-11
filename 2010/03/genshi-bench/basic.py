@@ -184,6 +184,25 @@ def webpy(dirname, verbose=False):
         
     return f
 
+def jinja2(dirname, verbose=False):
+    from jinja2 import Environment, FileSystemLoader
+    env = Environment(loader=FileSystemLoader([dirname]), autoescape=True)
+
+    t = env.get_template('template.html')
+    env.get_template('header.html')
+    env.get_template('footer.html')
+
+    def f():
+        return t.render(
+            title='Just a test',
+            user='joe',
+            items=['Number %d' % num for num in range(1, 15)]
+        )
+
+    if verbose:
+        print f()
+    return f
+
 def run(engines, number=2000, verbose=False):
     basepath = os.path.abspath(os.path.dirname(__file__))
     for engine in engines:

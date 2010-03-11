@@ -50,6 +50,11 @@ try:
 except ImportError:
     WebPyTemplate = None
 
+try:
+    from jinja2 import Environment as Jinja2Environment
+except ImportError:
+    Jinja2Template = None
+
 table = [dict(a=1,b=2,c=3,d=4,e=5,f=6,g=7,h=8,i=9,j=10)
           for x in range(1000)]
 
@@ -115,6 +120,23 @@ if WebPyTemplate:
         """web.py template"""
         d = webpy_tmpl(table)
         unicode(d)
+
+if Jinja2Environment:
+    env = Jinja2Environment(autoescape=True)
+    jinja2_tmpl = env.from_string("""
+<table>
+  {% for row in table %}
+    <tr>
+      {% for col in row.values() %}
+        <td>{{ col }}</td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+</table>
+""")
+    def test_jinja2():
+        """jinja2 template"""
+        return jinja2_tmpl.render({"table": table})
 
 def test_genshi():
     """Genshi template"""
@@ -216,7 +238,7 @@ if neo_cgi:
 def run(which=None, number=10):
     tests = ['test_builder', 'test_genshi', 'test_genshi_text',
              'test_genshi_builder', 'test_mako', 'test_kid', 'test_kid_et',
-             'test_et', 'test_cet', 'test_clearsilver', 'test_django', 'test_webpy']
+             'test_et', 'test_cet', 'test_clearsilver', 'test_django', 'test_webpy', 'test_jinja2']
 
     if which:
         tests = filter(lambda n: n[5:] in which, tests)
